@@ -113,7 +113,8 @@ stringOfList f xs = "[" ++ sepConcat ", " (map f xs) ++ "]"
 -- ["foo", "foo"]
 
 clone :: a -> Int -> [a]
-clone x n = error "TBD:clone"
+clone x 0 = []
+clone x n = x:[] ++ (clone x (n-1))
 
 type BigInt = [Int]
 
