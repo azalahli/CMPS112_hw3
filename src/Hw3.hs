@@ -60,7 +60,7 @@ sqSum xs = foldLeft f base xs
 pipe :: [(a -> a)] -> (a -> a)
 pipe fs   = foldLeft f base fs
   where
-    f a x = error "hi"
+    f a x = a . x
     base  = (\x -> x)
 
 --------------------------------------------------------------------------------
