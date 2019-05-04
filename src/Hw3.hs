@@ -80,7 +80,7 @@ sepConcat sep []     = ""
 sepConcat sep (x:xs) = foldLeft f base l
   where
     f a x            = a ++ sep ++ x
-    base             = ""
+    base             = x
     l                = xs
 
 intString :: Int -> String
