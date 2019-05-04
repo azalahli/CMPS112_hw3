@@ -100,7 +100,8 @@ intString = show
 -- "[[1, 2, 3], [4, 5], [6], []]"
 
 stringOfList :: (a -> String) -> [a] -> String
-stringOfList f xs = error "TBD:stringOfList"
+stringOfList f xs = "[" ++ sepConcat ", " (map f xs) ++ "]"
+
 
 --------------------------------------------------------------------------------
 -- | `clone x n` returns a `[x,x,...,x]` containing `n` copies of `x`
