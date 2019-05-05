@@ -130,7 +130,9 @@ type BigInt = [Int]
 -- [1,0,0,2] [0,0,9,9]
 
 padZero :: BigInt -> BigInt -> (BigInt, BigInt)
-padZero l1 l2 = error "TBD:padZero"
+padZero l1 l2 = if length l1 > length l2
+    then (l1, clone 0 (length l1 - length l2) ++ l2)
+    else (clone 0 (length l2 - length l1) ++ l1, l2)
 
 --------------------------------------------------------------------------------
 -- | `removeZero ds` strips out all leading `0` from the left-side of `ds`.
@@ -145,8 +147,19 @@ padZero l1 l2 = error "TBD:padZero"
 -- []
 
 removeZero :: BigInt -> BigInt
-removeZero ds = error "TBD:removeZero"
 
+--removeZero (x:y:[]) = [x] ++ [y]
+-- *Hw3 Hw3> removeZero [9,9,9,9]
+-- [9,9]
+removeZero (x:y:ds) = if x /= 0 && y /= 0
+    then [x] ++ [y] ++ ds
+    else 
+        if x == 0 && y /= 0
+        then [y] ++ ds
+        else removeZero ([y] ++ ds) 
+
+removeZero (_:[]) = []
+removeZero [] = []
 
 --------------------------------------------------------------------------------
 -- | `bigAdd n1 n2` returns the `BigInt` representing the sum of `n1` and `n2`.
