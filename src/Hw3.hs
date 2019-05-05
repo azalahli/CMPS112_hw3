@@ -176,9 +176,9 @@ bigAdd l1 l2     = removeZero res
   where
     (l1', l2')   = padZero l1 l2
     res          = foldLeft f base args
-    f a x        = error "TBD:bigAdd:f"
-    base         = []
-    args         = []
+    f a x   = a ++ (map (\(q,w) -> q + w) x)
+    base         = [0]
+    args         = [zip l1' l2']
 
 
 --------------------------------------------------------------------------------
