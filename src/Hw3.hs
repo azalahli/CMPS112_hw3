@@ -176,9 +176,9 @@ bigAdd l1 l2     = removeZero res
   where
     (l1', l2')   = padZero l1 l2
     res          = foldLeft f base args
-    f a x        = (\a1 x1 -> case(a1) of
-        [] -> (div (fst(x1) + snd(x1)) 10):[(mod (fst(x1) + snd(x1)) 10)]              -- base or no carry
-        a1:xs -> ((mod ((fst(x1) + snd(x1)) + a1) 10) ++ xs )) a x      -- case with carry needs to pop carry
+    f a x        = (\a1 (q,w) -> case(a1) of
+        [] -> (div (q+w) 10):[(mod (q+w) 10)]              -- base or no carry
+        a1:xs -> (div (q+w+a1) 10):[(mod (q+w+a1) 10)] ++ xs ) a x      -- case with carry needs to pop carry
         --where
             --addT x = fst(x1) + snd(x1)
     
