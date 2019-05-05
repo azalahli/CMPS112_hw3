@@ -176,12 +176,12 @@ bigAdd l1 l2     = removeZero res
   where
     (l1', l2')   = padZero l1 l2
     res          = foldLeft f base args
-    f a x        = 
-        --a ++ (map cleanTuple (map addT x))
+    f a x        = a ++ (map addT x)
         where
             addT x = fst(x) + snd(x)
+            --addLT (x1:x2:xs) = fst(x1) + snd(x1) + fst(x2)
             cleanTuple x = (div x 10, mod x 10)
-            carry x = 
+            --carry x = 
         
         --(a ++ (map (\(q,w) -> (q + w)) x))
         --if ((\(q1,w1) -> (q1 + w1)) x) > 10
@@ -192,7 +192,7 @@ bigAdd l1 l2     = removeZero res
 --maybe a basic if then else?
         --map (\h -> if fst(h) > 0 then else) ((a ++ (map (\(q,w) -> div (q + w) 10) x)), (a ++ (map (\(q,w) ->mod (q + w ) 10) x)))
 --map (\a -> if a >= 10 then a `mod` 10 else a) (a ++ (map (\(q,w) -> (q + w)) x))
-    base         = [0]
+    base         = []
     args         = reverse [zip l1' l2']
 
 
