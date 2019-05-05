@@ -177,10 +177,10 @@ bigAdd l1 l2     = removeZero res
     (l1', l2')   = padZero l1 l2
     res          = foldLeft f base args
     f a x        = (\a1 x1 -> case(a1) of
-        [] -> (div (addT x1) 10):[(mod (addT x1) 10)]              -- base or no carry
-        a1:xs -> ((mod ((addT x1) + a1) 10))) a x      -- case with carry needs to pop carry
-        where
-            addT x = fst(x) + snd(x)
+        [] -> (div (fst(x1) + snd(x1)) 10):[(mod (fst(x1) + snd(x1)) 10)]              -- base or no carry
+        a1:xs -> ((mod ((fst(x1) + snd(x1)) + a1) 10) ++ xs )) a x      -- case with carry needs to pop carry
+        --where
+            --addT x = fst(x1) + snd(x1)
     
 -- head is carry
         --a ++ (map addT x)
@@ -199,8 +199,7 @@ bigAdd l1 l2     = removeZero res
         --map (\h -> if fst(h) > 0 then else) ((a ++ (map (\(q,w) -> div (q + w) 10) x)), (a ++ (map (\(q,w) ->mod (q + w ) 10) x)))
 --map (\a -> if a >= 10 then a `mod` 10 else a) (a ++ (map (\(q,w) -> (q + w)) x))
     base         = []
-    args         = reverse [zip l1' l2']
-
+    args         = reverse (zip l1' l2')
 
 --------------------------------------------------------------------------------
 -- | `mulByDigit i n` returns the result of multiplying
