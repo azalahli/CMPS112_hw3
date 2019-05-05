@@ -60,6 +60,7 @@ sqSum xs = foldLeft f base xs
 pipe :: [(a -> a)] -> (a -> a)
 pipe fs   = foldLeft f base fs
   where
+    --f a x = f x
     f a x = a . x
     base  = (\x -> x)
 
@@ -176,8 +177,8 @@ bigAdd l1 l2     = removeZero res
     (l1', l2')   = padZero l1 l2
     res          = foldLeft f base args
     f a x        = error "TBD:bigAdd:f"
-    base         = error "TBD:bigAdd:base"
-    args         = error "TBD:bigAdd:args"
+    base         = []
+    args         = []
 
 
 --------------------------------------------------------------------------------
