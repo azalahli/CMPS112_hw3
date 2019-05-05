@@ -176,7 +176,8 @@ bigAdd l1 l2     = removeZero res
   where
     (l1', l2')   = padZero l1 l2
     res          = foldLeft f base args
-    f a x   = a ++ (map (\(q,w) -> q + w) x)
+    f a x        = ((a ++ (map (\(q,w) -> div (q + w) 10) x)), (a ++ (map (\(q,w) ->mod (q + w ) 10) x)))
+--map (\a -> if a >= 10 then a `mod` 10 else a) (a ++ (map (\(q,w) -> (q + w)) x))
     base         = [0]
     args         = [zip l1' l2']
 
