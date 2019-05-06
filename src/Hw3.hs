@@ -248,11 +248,12 @@ bigMul :: BigInt -> BigInt -> BigInt
 bigMul l1 l2 = res
   where
     (_,res) = foldLeft f base args
-    f a x    = (\ls x1 ->  ( (fst(ls)+1),(sumterm x) )  ) a x
+    f a x    = (\tuple x1 -> ((fst(tuple)+1) , (bigAdd (expr tuple x1) (snd(tuple))))) a x
         where
-        placevalue x = 10^fst(x)
-        mult x = mulByDigit (placevalue snd(x)) l1
-        sumterm x = bigAdd (mult x) snd(x)
+        --placevalue x = 10^fst(x)
+        --mult x = mulByDigit (placevalue snd(x)) l1
+        --sumterm x = bigAdd (mult x) snd(x)
+        expr x y = mulByDigit (y*(10^fst(x))) l1
 
 
 
