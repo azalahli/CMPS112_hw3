@@ -177,8 +177,9 @@ bigAdd l1 l2     = removeZero res
     (l1', l2')   = padZero l1 l2
     res          = foldLeft f base args
     f a x        = (\a1 x1 -> case(a1) of
-        [] -> expr2 x1             -- base or no carry
-        a1:xs -> expr x1 a1 ++ xs ) a x      -- case with carry needs to pop carry
+        [] -> expr2 x1          -- base or no carry
+        a1:xs ->(expr x1 a1) ++ xs
+        ) a x      -- case with carry needs to pop carry
         where
             addT x          = fst(x) + snd(x)
             addR x y        = fst(x) + snd(x) + y
@@ -186,6 +187,8 @@ bigAdd l1 l2     = removeZero res
             normC_W_R x1 a1 = (div (addR x1 a1) 10)
             normD_N_R x1    = (mod (addT x1) 10)
             normD_W_R x1 a1 = (mod (addR x1 a1) 10)
+            --expr x1 a1 = (normC_W_R x1 a1):[0] 
+            --expr2 x1 = (normC_N_R x1):[0] 
             expr x1 a1 = (normC_W_R x1 a1):[normD_W_R x1 a1] 
             expr2 x1 = (normC_N_R x1):[normD_N_R x1] 
         --WORKING CODE
@@ -211,7 +214,7 @@ bigAdd l1 l2     = removeZero res
 --maybe a basic if then else?
         --map (\h -> if fst(h) > 0 then else) ((a ++ (map (\(q,w) -> div (q + w) 10) x)), (a ++ (map (\(q,w) ->mod (q + w ) 10) x)))
 --map (\a -> if a >= 10 then a `mod` 10 else a) (a ++ (map (\(q,w) -> (q + w)) x))
-    base         = []
+    base         = [0]
     args         = reverse (zip l1' l2')
 
 --------------------------------------------------------------------------------
