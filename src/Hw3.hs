@@ -247,10 +247,22 @@ mulByDigit i n = foldr bigAdd [] (clone n i)
 bigMul :: BigInt -> BigInt -> BigInt
 bigMul l1 l2 = res
   where
-    (_, res) = foldLeft f base args
+    (_,res) = foldLeft f base args
+    f a x    = (\ls x1 -> case(x1) of
+        [] -> []
+        q:x1 -> ((fst(ls)+1),(bigAdd (mulByDigit (q*(10^fst(ls))) l1) snd(ls)))
+        ) a x
+    base     = (0,[0])
+    args     = l2
+    {-}
+    res = foldLeft f base args
     f a x    = (\ls x1 -> case(x1) of
         [] -> []
         q:x1 -> bigAdd (mulByDigit q l1) ls
         ) a x
-    base     = (0, [0])
-    args     = l2
+    base     = [0]
+    -}
+        --(0,[0])
+--this holds from result tuple of (_, res)
+--does not work by because due to right zero from 10^k_i from right
+    
