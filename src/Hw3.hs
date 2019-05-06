@@ -172,12 +172,12 @@ removeZero [] = []
 -- [1, 0, 9, 9, 8]
 
 bigAdd :: BigInt -> BigInt -> BigInt
-bigAdd l1 l2     = removeZero res
+bigAdd l1 l2     = res
   where
     (l1', l2')   = padZero l1 l2
     res          = foldLeft f base args
     f a x        = (\a1 x1 -> case(a1) of
-        [] -> expr2 x1          -- base or no carry
+        [] -> (expr2 x1)          -- base or no carry
         a1:xs ->(expr x1 a1) ++ xs
         ) a x      -- case with carry needs to pop carry
         where
@@ -189,8 +189,10 @@ bigAdd l1 l2     = removeZero res
             normD_W_R x1 a1 = (mod (addR x1 a1) 10)
             --expr x1 a1 = (normC_W_R x1 a1):[0] 
             --expr2 x1 = (normC_N_R x1):[0] 
-            expr x1 a1 = (normC_W_R x1 a1):[normD_W_R x1 a1] 
-            expr2 x1 = (normC_N_R x1):[normD_N_R x1] 
+            --expr x1 a1 = (normC_W_R x1 a1):[normD_W_R x1 a1] 
+            --expr2 x1 = (normC_N_R x1):[normD_N_R x1] 
+            expr x1 a1 = [normC_W_R x1 a1,normD_W_R x1 a1] 
+            expr2 x1 = [normC_N_R x1, normD_N_R x1] 
         --WORKING CODE
         --(\a1 (q,w) -> case(a1) of
         --[] -> (div (q+w) 10):[(mod (q+w) 10)]              -- base or no carry
