@@ -248,6 +248,9 @@ bigMul :: BigInt -> BigInt -> BigInt
 bigMul l1 l2 = res
   where
     (_, res) = foldLeft f base args
-    f a x    = error "TBD:bigMul:f"
-    base     = error "TBD:bigMul:base"
-    args     = error "TBD:bigMul:args"
+    f a x    = (\ls x1 -> case(x1) of
+        [] -> []
+        q:x1 -> bigAdd (mulByDigit q l1) ls
+        ) a x
+    base     = (0, [0])
+    args     = l2
