@@ -222,7 +222,7 @@ bigAdd l1 l2     = removeZero res
 -- [8,9,9,9,1]
 
 mulByDigit :: Int -> BigInt -> BigInt
-mulByDigit i n = error "TBD:mulByDigit"
+mulByDigit i n = foldr bigAdd [] (clone n i)
 
 --------------------------------------------------------------------------------
 -- | `bigMul n1 n2` returns the `BigInt` representing the product of `n1` and `n2`.
