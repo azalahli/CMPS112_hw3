@@ -152,7 +152,13 @@ removeZero :: BigInt -> BigInt
 --removeZero (x:y:[]) = [x] ++ [y]
 -- *Hw3 Hw3> removeZero [9,9,9,9]
 -- [9,9]
-removeZero (x:y:ds) = if x /= 0 && y /= 0
+removeZero (x:xs) = if x == 0
+    then removeZero xs
+    else [x] ++ xs
+    
+    
+    {-}
+    if x /= 0 && y /= 0
     then [x] ++ [y] ++ ds
     else 
         if x == 0 && y /= 0
@@ -161,7 +167,7 @@ removeZero (x:y:ds) = if x /= 0 && y /= 0
 
 removeZero (_:[]) = []
 removeZero [] = []
-
+-}
 --------------------------------------------------------------------------------
 -- | `bigAdd n1 n2` returns the `BigInt` representing the sum of `n1` and `n2`.
 --
@@ -172,7 +178,7 @@ removeZero [] = []
 -- [1, 0, 9, 9, 8]
 
 bigAdd :: BigInt -> BigInt -> BigInt
-bigAdd l1 l2     = res
+bigAdd l1 l2     = removeZero res
   where
     (l1', l2')   = padZero l1 l2
     res          = foldLeft f base args
