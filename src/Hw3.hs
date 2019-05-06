@@ -248,10 +248,14 @@ bigMul :: BigInt -> BigInt -> BigInt
 bigMul l1 l2 = res
   where
     (_,res) = foldLeft f base args
-    f a x    = (\ls x1 -> case(x1) of
-        [] -> []
-        q:x1 -> ((fst(ls)+1),(bigAdd (mulByDigit (q*(10^fst(ls))) l1) snd(ls)))
-        ) a x
+    f a x    = (\ls x1 ->  ( (fst(ls)+1),(sumterm x) )  ) a x
+        where
+        placevalue x = 10^fst(x)
+        mult x = mulByDigit (placevalue snd(x)) l1
+        sumterm x = bigAdd (mult x) snd(x)
+
+
+
     base     = (0,[0])
     args     = l2
     {-}
